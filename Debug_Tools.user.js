@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Debug Tools
-// @version      0.4
+// @version      0.5
 // @author       JRoot3D
 // @match        http://localhost:85/*
 // @match        http://localhost:80/*
@@ -30,11 +30,11 @@
 
     function selectLanguage() {
         var languages = ["bg_BG", "cs_CZ", "da_DK", "de_DE", "el_GR", "en_US", "es_ES", "fr_FR", "hr_HR", "hu_HU", "it_IT", "nl_NL", "pl_PL", "pt_BR", "pt_PT", "ro_RO", "ru_RU", "sk_SK", "sl_SI", "sv_SE", "tr_TR"];
-        var currentLanguage = location.href.match(/[a-z]{2}_[A-Z]{2}/);
+        var currentLanguage = CF_getParameterByName('language');
 
         alertify.selectLanguage('Select language', 'Language', languages, currentLanguage,
             function (evt, value) {
-                var loc = location.href.replace(/[a-z]{2}_[A-Z]{2}/, value);
+                var loc = location.href.replace(currentLanguage, value);
                 location.href = loc;
             },
             function () {
