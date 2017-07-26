@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Alertify Dialogs
-// @version      0.1
+// @version      0.2
 // @author       JRoot3D
 // ==/UserScript==
 
@@ -24,10 +24,11 @@ if (!alertify.selectLanguage) {
         var input = document.createElement('SELECT');
         var p = document.createElement('P');
         return {
-            main: function (_title, _message, _value, _onok, _oncancel) {
+            main: function (_title, _message, _value, _defaultValue, _onok, _oncancel) {
                 this.set('title', _title);
                 this.set('message', _message);
                 this.set('value', _value);
+                this.set('defaultValue', _defaultValue);
                 this.set('onok', _onok);
                 this.set('oncancel', _oncancel);
                 return this;
@@ -77,6 +78,7 @@ if (!alertify.selectLanguage) {
                 onok: undefined,
                 oncancel: undefined,
                 value: '',
+                defaultValue: '',
                 type: 'text',
                 reverseButtons: undefined
             },
@@ -92,6 +94,7 @@ if (!alertify.selectLanguage) {
                             option.setAttribute("value", newValue[i]);
                             option.text = newValue[i];
                             input.appendChild(option);
+                            input.value = this.defaultValue
                         }
                         break;
                 }

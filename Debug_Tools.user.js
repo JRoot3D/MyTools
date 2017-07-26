@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Debug Tools
-// @version      0.1
+// @version      0.2
 // @author       JRoot3D
 // @match        http://localhost:85/*
 // @match        http://localhost:80/*
@@ -21,21 +21,22 @@
 // @downloadURL  https://github.com/JRoot3D/MyTools/raw/master/Debug_Tools.user.js
 // ==/UserScript==
 
-(function() {
+(function () {
     'use strict';
 
     CF_addStyle('alertifyCSS');
     CF_addStyle('alertifyDefaultCSS');
 
     function selectLanguage() {
-        var languages = ["bg_BG","cs_CZ","da_DK","de_DE","el_GR","en_US","es_ES","fr_FR","hr_HR","hu_HU","it_IT","nl_NL","pl_PL","pt_BR","pt_PT","ro_RO","ru_RU","sk_SK","sl_SI","sv_SE","tr_TR"];
+        var languages = ["bg_BG", "cs_CZ", "da_DK", "de_DE", "el_GR", "en_US", "es_ES", "fr_FR", "hr_HR", "hu_HU", "it_IT", "nl_NL", "pl_PL", "pt_BR", "pt_PT", "ro_RO", "ru_RU", "sk_SK", "sl_SI", "sv_SE", "tr_TR"];
+        var currentLanguage = location.href.match(/[a-z]{2}_[A-Z]{2}/);
 
-        alertify.selectLanguage('Select language', 'Language', languages ,
-            function(evt, value) {
+        alertify.selectLanguage('Select language', 'Language', languages, currentLanguage,
+            function (evt, value) {
                 var loc = location.href.replace(/[a-z]{2}_[A-Z]{2}/, value);
                 location.href = loc;
-            } ,
-            function() {
+            },
+            function () {
                 alertify.error('Cancel');
             });
     }
