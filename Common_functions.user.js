@@ -1,9 +1,10 @@
 // ==UserScript==
 // @name         Common functions
+// @version      0.1
 // @author       JRoot3D
 // ==/UserScript==
 
-var CF_VERSION = 0.9;
+var CF_VERSION = 0.1;
 
 function CF_addStyle(name) {
     var style = GM_getResourceText(name);
@@ -125,4 +126,17 @@ function CF_checkVersion(version) {
         GM_log('Wrong version, need CF v' + version);
     }
     return result;
+}
+
+/**
+ * @return {string}
+ */
+function CF_getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }

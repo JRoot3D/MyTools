@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Debug Tools
-// @version      0.2
+// @version      0.3
 // @author       JRoot3D
 // @match        http://localhost:85/*
 // @match        http://localhost:80/*
@@ -17,6 +17,7 @@
 // @grant        GM_addStyle
 // @grant        GM_setValue
 // @grant        GM_getValue
+// @grant        GM_log
 // @updateURL    https://github.com/JRoot3D/MyTools/raw/master/Debug_Tools.user.js
 // @downloadURL  https://github.com/JRoot3D/MyTools/raw/master/Debug_Tools.user.js
 // ==/UserScript==
@@ -41,5 +42,22 @@
             });
     }
 
+    function editQueryParam(param, caption, message){
+        var paramValue = CF_getParameterByName(param);
+
+        alertify.prompt(caption, message, paramValue, function(evt, value) {
+            if (paramValue) {
+                location.href = location.href.replace(paramValue, value);
+            } else if (value) {
+                location.href += "&" + param + "=" + value;
+            }
+        }, function() { alertify.error('Cancel'); }).set("reverseButtons", true);
+    }
+
+    function changeAccountName(){
+        editQueryParam('accountName', 'Enter Account Name', 'Account Name');
+    }
+
     GM_registerMenuCommand("Select language", selectLanguage);
+    GM_registerMenuCommand("Change accountName", changeAccountName);
 })();
