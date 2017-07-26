@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Debug Tools
-// @version      0.3
+// @version      0.4
 // @author       JRoot3D
 // @match        http://localhost:85/*
 // @match        http://localhost:80/*
@@ -46,10 +46,14 @@
         var paramValue = CF_getParameterByName(param);
 
         alertify.prompt(caption, message, paramValue, function(evt, value) {
-            if (paramValue) {
-                location.href = location.href.replace(paramValue, value);
-            } else if (value) {
-                location.href += "&" + param + "=" + value;
+            if (value.length > 0) {
+                if (paramValue) {
+                    location.href = location.href.replace(paramValue, value);
+                } else {
+                    location.href += "&" + param + "=" + value;
+                }
+            } else if (paramValue) {
+                location.href = location.href.replace("&" + param + "=" + paramValue, "")
             }
         }, function() { alertify.error('Cancel'); }).set("reverseButtons", true);
     }
